@@ -19,11 +19,14 @@ if (isset($_SESSION["isAdmin"])){
 }
 else{
     if (isset($_SESSION["logged"])){
-        echo '<a href="GamePlay.php">Play Razboi</a><br>';
+        echo '<a href="GamePlay.php">Play Razboi online</a><br>';
+        echo '<a href="AutoGamePlay.php">Play Razboi with a computer</a><br>';
+        echo '<a href="SendEmails.php"><br>';
     }
 }
 echo '<a href="Statistics.php">Statistics</a>';
 if (isset($_SESSION["logged"]))  {
+    echo '                  Hello ' . $_SESSION['userName'];
     echo '<a href="logout.php" value="Logout" style="float: right;">Logout</a>';
 }
 else {

@@ -24,6 +24,7 @@ if(isset($result->num_rows) && $result->num_rows > 0) {
     $_SESSION['logged'] = true;
     $row = $result->fetch_assoc();
     $_SESSION['id'] = $row["ID"];
+    $_SESSION['userName'] = $row['User_Name'];
     $numberOfLogins = (int) ($row['Number_Of_Logins']) + 1;
     var_dump($numberOfLogins);
     $nrLogins = (string) $numberOfLogins;

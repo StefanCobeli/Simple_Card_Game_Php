@@ -5,33 +5,41 @@
  * Date: 1/14/2017
  * Time: 5:59 PM
  */
-$host = '127.0.0.1';
-$usrname = 'root';
-$passwd = '';
-$dbname = 'RazboiDB';
-session_start();
 
-if(isset($_GET["isWaiting"])) {
+include "MasterPage.php";
 
-    $con = new mysqli($host, $usrname, $passwd, $dbname);
-    if (mysqli_connect_errno()) {
-        exit('Connect failed: '. mysqli_connect_error());
-    }
-    $getOpponentQuery = "SELECT ID FROM users WHERE Is_Waiting = 1 AND ID <> " . $_SESSION['id'];
-    $result = $con->query($getOpponentQuery);
-    if($result->num_rows > 0) {
-        header('Location: ' . "GamePlay.php?gameStarted=true");
-    }
-    header('Location: ' . "GamePlay.php?isWaiting=true");
+$con = new mysqli($host, $usrname, $passwd, $dbname);
+if (mysqli_connect_errno()) {
+    exit('Connect failed: '. mysqli_connect_error());
 }
-else if(isset($_GET["gameStarted"])) {
+if(isset($_GET["Opponent"])) {
     // impartirea cartilor
+    //0 make server and client
+    //1 update isWaiting
+    //2 insert isPlaying
     // gameplay-ul respectiv
+    echo 'Your opponent is ' . $_GET["Opponent"];
 }
-echo '<a href="updateIsWaiting.php">Find a match</a>';
+else{
+    echo '<a href="updateIsWaiting.php">Find a match</a>';
+}
 
 if (! $_SESSION['logged']){
+    $con->close();
     header('Location: ' . "login.php?ceva=altceva");
+    die();
+}
+
+
+if(isset($_GET["Difference"])){
+        $insertQuery = "INSERT INTO Matches_Against_Eva (User_Id, Difference) VALUES ( " . $_SESSION["id"] . ", " . $_GET["Difference"] . ")";
+        if ($con->query($insertQuery) === TRUE) {
+            echo "The game was added to the database!";
+        }
+        else {
+            echo 'Error: '. $con->error;
+        }
+        $con -> close();
 }
 
 

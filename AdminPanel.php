@@ -62,3 +62,34 @@ if ($_SESSION["isAdmin"] && $_SESSION["logged"]){
 else{
     header('Location: '. "login.php");
 }
+?>
+
+<form style="float: right" method="get" action="SendEmails.php">
+        Email Text:<br>
+    <textarea cols="40" rows="7"  name="emailText"></textarea>
+        <br><br>
+        <input type="submit" value="Send this emails to all users allong with the game statistics">
+    </form>
+</form>
+
+<?php
+$url = 'http://crisplusina.ro/';
+$content = file_get_contents($url);
+$first_step = explode( '<div id="primary">' , $content );
+$second_step = explode("</div>" , $first_step[1] );
+
+//echo '<div sty>'
+echo $second_step[0];
+echo $second_step[1];
+echo $second_step[2];
+//$html = str_get_html($html);
+//$amounts = array();
+//foreach ( $html->find("div[class=hm_bottom] span") as $span ) {
+//    $amount = trim($span->plaintext);
+//    if (strpos($amount, "\$") === 0)
+//        $amounts[] = $amount;
+//}
+//
+//var_dump($amounts);
+
+?>

@@ -30,17 +30,21 @@ if (isset($_GET["update"])){
     $result = $con->query($selectQuery);
     $row = $result->fetch_assoc();
     echo '<form action="InsertOrUpdate.php" method="get">';
-    echo '<input type="hidden" name="update" value="Update user">';
+    echo '<input type="hidden" name="update" value=' . $row["ID"] . '>';
     echo 'The user ID is: ' . $row["ID"] . '<br>';
-    echo '<input type="text" name="User_Name" placeholder=' . $row["User_Name"] . '>';
+    echo 'User Name: <input type="text" name="User_Name" placeholder=' . $row["User_Name"] . '>';
     echo '<br>';
-    echo '<input type="text" name="Password" placeholder=' . $row["Password"] . '>';
+    echo 'Password: <input type="text" name="Password" placeholder=' . $row["Password"] . '>';
     echo '<br>';
-    echo '<input type="text" name="Email" placeholder=' . $row["Email"] .'>';
+    echo 'Email: <input type="text" name="Email" placeholder=' . $row["Email"] .'>';
     echo '<br>';
     echo 'The user was registered on: ' . $row["Register_Date"] . '<br>';
     echo 'The user last logged on: ' . $row["Last_Login"] . '<br>';
     echo 'The user logged in '. $row["Number_Of_Logins"] . ' times.<br>';
+    echo 'Is Playing: <input type="text" name="Is_Playing" placeholder=' . $row["Is_Playing"] .'>';
+    echo '<br>';
+    echo 'Is Server: <input type="text" name="Is_Server" placeholder=' . $row["Is_Server"] .'>';
+    echo '<br>';
     echo '<input type="submit" value="Update User">';
     echo '</form>';
 }
